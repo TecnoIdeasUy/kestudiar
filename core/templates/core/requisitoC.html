@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Agregar requisito al curso{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ cNombre }}</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'cursoM' id institucion nombre %}">Volver al curso</a>
+		</p>
+		<p>
+			Aqui se ven los requisitos del curso y puedes agregar nuevos requisitos.
+		</p>
+	</section>
+  <section id="requisitos">
+    <p>
+      Requisitos para inscripción
+    </p>
+    <div id="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th width="800px">Requisitos</th>
+          </tr>
+        </thead>
+        {% for c in requisitosC %}
+        <tr id="col1">
+          <td>{{c.requisito}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+	<section id="formReg">
+		<form action="" id="requisitoC" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtInstitucion" id="txtInstitucion" value = "{{ institucion }}">
+      <input type="hidden" name="txtCurso" id="txtCurso" value = "{{ id }}">
+			<label for="Requisito">Requisito a agregar</label>
+				<p></p>
+				<select id="crequisito" name="cboRequisito">
+				{% for r in requisito %}
+				<option
+        {% if r.id == requisito.id %}
+				{{'selected'}}
+				{% endif %}
+        value={{ r.id }}>{{r.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<input type="submit" name="btnAgregar" value="Agregar requisito">
+			<p></p>
+			<a href="{% url 'requisito' id institucion nombre cNombre %}">Nuevo requisito</a>
+		</form>
+	</section>
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

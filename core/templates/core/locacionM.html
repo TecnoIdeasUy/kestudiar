@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Locaciones de la Institución{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ nombre }}</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'institucion' institucion %}">Volver a la institución </a>
+		</p>
+		<p>
+			Actualización de datos de la Locación.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="registroInst" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtInstitucion" id="txtInstitucion" value = "{{ institucion }}">
+      <input type="hidden" name="txtId" id="txtId" value = "{{ id }}">
+			<label for="Nombre">Nombre de la Institución</label>
+			<input type="text" name="txtNombre" id="txtNombre" value = "{{ local.nombre }}">
+			<label for="Direccion">Dirección</label>
+			<input type="text" name="txtDireccion" id="txtDireccion" value = "{{ local.direccion }}">
+			<label for="Pais">País</label>
+				<p></p>
+				<select id="cpais" name="cboPais">
+				{% for p in paises %}
+				<option
+        {% if p.id == local.pais.id %}
+				{{'selected'}}
+				{% endif %}
+        value={{ p.id }}>{{p.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Departamento">Departamento</label>
+				<p></p>
+				<select id="cdepartamento" name="cboDepartamento">
+				{% for d in departamentos %}
+				<option
+        {% if d.id == local.departamento.id %}
+        {{'selected'}}
+        {% endif %}
+        value={{ d.id }}>{{d.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Ciudad">Ciudad</label>
+				<p></p>
+				<select id="cciudad" name="cboCiudad">
+				{% for c in ciudades %}
+				<option
+        {% if c.id == local.ciudad.id %}
+        {{'selected'}}
+        {% endif %}
+        value={{ c.id }}>{{c.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Barrio">Barrio</label>
+				<p></p>
+				<select id="cbarrio" name="cboBarrio">
+				{% for b in barrios %}
+				<option
+        {% if b.id == local.barrio.id %}
+        {{'selected'}}
+        {% endif %}
+        value={{ b.id }}>{{b.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Telefono">Teléfono</label>
+			<input type="text" name="txtTelefono" id="txtTelefono" value = "{{ local.telefono }}">
+			<label for="Mail">Correo elecrónico</label>
+			<input type="email" name="txtMail" id="txtMail" value = "{{ local.eMail }}">
+			<input type="submit" name="btnModificar" value="Guardar cambios">
+		</form>
+	</section>
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

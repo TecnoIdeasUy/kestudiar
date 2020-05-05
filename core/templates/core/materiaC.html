@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Agregar materias al curso{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ cNombre }}</p>
+	</section>
+	<section id="presentacion">
+    <p style="text-align: right">
+		<a href="{% url 'cursoM' id institucion nombre %}">Volver al curso</a>
+		</p>
+		<p>
+			Aqui se ven las materias del curso y puedes agregar nuevas.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="requisitoC" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtInstitucion" id="txtInstitucion" value = "{{ institucion }}">
+      <input type="hidden" name="txtCurso" id="txtCurso" value = "{{ id }}">
+      <label for="Materia">Materia</label>
+				<p></p>
+				<select id="cmateria" name="cboMateria">
+				{% for m in materia %}
+				<option
+        {% if m.id == materia.id %}
+				{{'selected'}}
+				{% endif %}
+        value={{ m.id }}>{{m.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+      <label for="Semestre">Semestre</label>
+      <input type="text" name="txtSemestre" id="txtSemestre">
+      <label for="Horas">Horas semanales</label>
+      <input type="text" name="txtHoras" id="txtHoras">
+      <label for="Creditos">Creditos a obtener</label>
+      <input type="text" name="txtCreditos" id="txtCreditos">
+      <label for="Descripcion">Descripcion detallada</label>
+      <input type="text" name="txtDescripcion" id="txtDescripcion">
+			<input type="submit" name="btnAgregar" value="Agregar materia">
+      <p></p>
+			<a href="{% url 'materia' id institucion nombre cNombre %}">Nueva materia</a>
+		</form>
+	</section>
+	<section id="materias">
+    <p>
+      Materias del curso
+    </p>
+    <div id="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th width="10%">Semestre</th>
+						<th width="50%">Materia</th>
+						<th width="20%">Horas semanales</th>
+						<th width="20%">Creditos</th>
+          </tr>
+        </thead>
+        {% for c in materiasC %}
+        <tr id="col1">
+          <td>{{c.semestre}}</td>
+					<td>{{c.materia}}</td>
+					<td>{{c.horas}}</td>
+					<td>{{c.creditos}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

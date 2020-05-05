@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Agregar nuevos requisitos{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>Agregar nuevos requisitos</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'requisitoC' id institucion nombre cNombre %}">Volver atras</a>
+		</p>
+		<p>
+			Aqui se pueden agregar nuevos requisitos que podrán ser agregados a los cursos.
+		</p>
+	</section>
+  <section id="requisitos">
+    <p>
+      Requisitos
+    </p>
+    <div id="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th width="800px">Descripción</th>
+          </tr>
+        </thead>
+        {% for r in requisito %}
+        <tr id="col1">
+          <td>{{r.nombre}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+	<section id="formReg">
+		<form action="" id="requisitoC" method="POST">
+			{% csrf_token %}
+      <label for="Descripción">Descripcion del Requisito</label>
+      <input type="text" name="txtNombre" id="txtNombre">
+			<p></p>
+			<input type="submit" name="btnAgregar" value="Agregar nuevo requisito">
+		</form>
+	</section>
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

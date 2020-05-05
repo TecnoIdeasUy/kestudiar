@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Curso{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ nombre }}</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="curso" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtId" id="txtId" value = "{{ id }}">
+			<label for="Institución">Institución donde se dicta</label>
+			<input type="text" name="txtInstitucion" id="txtInstitucion" value = "{{ cursos.institucion.nombre }}" readonly>
+      <label for="Locación">Locación donde se dicta</label>
+			<input type="text" name="txtLocación" id="txtLocación" value = "{{ cursos.locacion.nombre }}" readonly>
+      <label for="Dirección">Dirección</label>
+			<input type="text" name="txtDirección" id="txtDirección" value = "{{ cursos.locacion.direccion }}" readonly>
+      <label for="Ciudad">Ciudad</label>
+			<input type="text" name="txtCiudad" id="txtCiudad" value = "{{ cursos.locacion.ciudad.nombre }}" readonly>
+			<label for="Duracion">Duración del curso</label>
+			<input type="text" name="txtDuracion" id="txtDuracion" value = "{{ cursos.duración }}" readonly>
+      <label for="Titulo">Titulo a obtener</label>
+			<input type="text" name="txtTitulo" id="txtTitulo" value = "{{ cursos.titulo }}" readonly>
+		</form>
+	</section>
+	<section id="requisitos">
+		<p>
+			Requisitos para inscripción
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="800px">Requisitos</th>
+					</tr>
+        </thead>
+        {% for r in requisitos %}
+  			<tr id="col1">
+  				<td>{{r.requisito}}</td>
+  			</tr>
+  			{% endfor %}
+			</table>
+		</div>
+	</section>
+	<section id="materias">
+		<p>
+			Materias del curso
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="10%">Semestre</th>
+						<th width="50%">Materia</th>
+						<th width="20%">Horas semanales</th>
+						<th width="20%">Creditos</th>
+					</tr>
+				</thead>
+        {% for m in materias %}
+				<tr id="col1">
+					<td>{{m.semestre}}</td>
+					<td>{{m.materia}}</td>
+					<td>{{m.horas}}</td>
+					<td>{{m.creditos}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</section>
+
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

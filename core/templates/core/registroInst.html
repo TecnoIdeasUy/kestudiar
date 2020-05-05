@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Institución{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>Registro de Instituciones</p>
+	</section>
+	<section id="presentacion">
+		<p>
+			El registro es muy importante para pueda exponer su oferta de cursos y de esta manera quedar a un click de sus futuros estudiantes.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="registroInst" method="POST">
+			{% csrf_token %}
+			<label for="Nombre">Nombre de la Institución</label>
+			<input type="text" placeholder="Nombre" name="txtNombre">
+			<label for="TipoInstitucion">Tipo de institución</label>
+				<p></p>
+				<select id="ctipo" name="cboTipo">
+				{% for t in tipos %}
+				<option value={{ t.id }}>{{t.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Direccion">Dirección</label>
+			<input type="text" placeholder="Direccion" name="txtDireccion">
+			<label for="Pais">País</label>
+				<p></p>
+				<select id="cpais" name="cboPais">
+				{% for p in paises %}
+				<option value={{ p.id }}>{{p.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Departamento">Departamento</label>
+				<p></p>
+				<select id="cdepartamento" name="cboDepartamento">
+				{% for d in departamentos %}
+				<option value={{ d.id }}>{{d.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Ciudad">Ciudad</label>
+				<p></p>
+				<select id="cciudad" name="cboCiudad">
+				{% for c in ciudades %}
+				<option value={{ c.id }}>{{c.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Barrio">Barrio</label>
+				<p></p>
+				<select id="cbarrio" name="cboBarrio">
+				{% for b in barrios %}
+				<option value={{ b.id }}>{{b.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Telefono">Teléfono</label>
+			<input type="text" placeholder="Telefono" name="txtTelefono">
+			<label for="Mail">Correo elecrónico</label>
+			<input type="email" placeholder="Mail" name="txtMail">
+			<label for="Web">Página web</label>
+			<input type="text" placeholder="Web" name="txtWeb">
+			<label for="Usuario">Nombre de usuario</label>
+			<input type="text" placeholder="Usuario" name="txtUsuario">
+			<label for="Contrasena">Contraseña</label>
+			<input type="password" placeholder="Contrasena" name="txtPassword">
+			<p>Estoy de acuerdo con los <a href="#">Términos y condiciones</a></p>
+			<input type="submit" name="btnGuardar" value="Guardar registro">
+		</form>
+	</section>
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

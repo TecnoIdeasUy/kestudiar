@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Instituciones{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+	</header>
+	<section id="titulo">
+		<a href="{% url 'institucion' instituto.id %}">{{ instituto.nombre }}</a>
+	</section>
+	<section id="cursos">
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="500px">Curso</th>
+						<th width="20%">Duración</th>
+						<th width="40%">Título</th>
+					</tr>
+				</thead>
+				{% for c in cursos %}
+				<tr id="col1">
+					<td>{{c.nombre}}</td>
+					<td>{{c.duración}}</td>
+					<td>{{c.titulo}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

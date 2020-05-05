@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Acceso para estudiantes{% endblock titulo %}
+{% block body %}
+<body>
+	<div class="login-box">
+		<a href="{% url 'home' %}">
+			<img class="logo" src="{% static 'core/img/logoKE.png' %}" alt="logoKE.png">
+		</a>
+		<h1>Acceso Estudiantes</h1>
+		<form action="" id="login" method="POST">
+      {% csrf_token %}
+			<!-- Nombre de usuario -->
+			<label for="usuario">Usuario</label>
+			<input type="text" class="form-control" name="txtUsuario" id="txtUsuario">
+
+			<!-- Contraseña -->
+			<label for="contrasena">Contraseña</label>
+			<input type="password" class="form-control" name="txtContraseña" id="txtContraseña">
+			<input type="submit" value="Login">
+			<a href="#">Olvido su contraseña?</a><br>
+			<a href="{% url 'registroEst' %}">No esta registrado? Hágalo ahora!!</a>
+			<label for="txtMen">{{ mensaje }}</label>
+		</form>
+	</div>
+</body>
+{% endblock body %}

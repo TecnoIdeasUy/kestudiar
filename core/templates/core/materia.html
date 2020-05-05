@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Agregar nuevas materias{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>Agregar nuevas materias</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'materiaC' id institucion nombre cNombre %}">Volver atras</a>
+		</p>
+		<p>
+			Aqui se pueden agregar nuevas materias que podrán ser agregadas a los cursos.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="materiaC" method="POST">
+			{% csrf_token %}
+      <label for="Descripción">Descripcion de la Materia</label>
+      <input type="text" name="txtNombre" id="txtNombre">
+			<p></p>
+			<input type="submit" name="btnAgregar" value="Agregar nueva materia">
+		</form>
+	</section>
+  <section id="materias">
+    <p>
+      Materias
+    </p>
+    <div id="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th width="800px">Descripción</th>
+          </tr>
+        </thead>
+        {% for m in materia %}
+        <tr id="col1">
+          <td>{{m.nombre}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

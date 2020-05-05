@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Cursos de la Institución{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ nombre }}</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'institucion' institucion %}">Volver a la institución </a>
+		</p>
+		<p>
+			Actualización de datos del curso.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="curso" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtInstitucion" id="txtInstitucion" value = "{{ institucion }}">
+      <input type="hidden" name="txtId" id="txtId" value = "{{ cursos.id }}">
+			<label for="Nombre">Nombre del curso</label>
+			<input type="text" name="txtNombre" id="txtNombre" value = "{{ cursos.nombre }}">
+			<label for="Duracion">Duración del curso</label>
+			<input type="text" name="txtDuracion" id="txtDuracion" value = "{{ cursos.duración }}">
+      <label for="Titulo">Titulo a obtener</label>
+			<input type="text" name="txtTitulo" id="txtTitulo" value = "{{ cursos.titulo }}">
+			<label for="Locacion">Locacion donde se dicta</label>
+				<p></p>
+				<select id="clocacion" name="cboLocacion">
+				{% for l in local %}
+				<option
+        {% if l.id == cursos.Locacion.id %}
+				{{'selected'}}
+				{% endif %}
+        value={{ l.id }}>{{l.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<input type="submit" name="btnModificar" value="Guardar cambios">
+		</form>
+	</section>
+	<section id="requisitos">
+		<p>
+			Requisitos para inscripción
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="100%">Requisitos</th>
+						<th></th>
+					</tr>
+				</thead>
+				{% for r in requisitos %}
+				<tr id="col1">
+					<td>{{r.requisito}}</td>
+					<td>
+						<a href="{% url 'eliminar_requisito' r.id cursos.id institucion nombre %}">Eliminar</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<a href="{% url 'requisitoC' cursos.id institucion nombre cursos.nombre %}">Agregar requisito</a>
+		</div>
+	</section>
+	<section id="materias">
+		<p>
+			Materias del curso
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="10%">Semestre</th>
+						<th width="50%">Materia</th>
+						<th width="20%">Horas semanales</th>
+						<th width="20%">Creditos</th>
+						<th></th>
+					</tr>
+				</thead>
+				{% for m in materias %}
+				<tr id="col1">
+					<td>{{m.semestre}}</td>
+					<td>{{m.materia}}</td>
+					<td>{{m.horas}}</td>
+					<td>{{m.creditos}}</td>
+					<td>
+						<a href="{% url 'eliminar_materia' m.id cursos.id institucion nombre %}">Eliminar</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<a href="{% url 'materiaC' cursos.id institucion nombre cursos.nombre %}">Agregar materia</a>
+		</div>
+	</section>
+
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Cursos de la Institución{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ nombre }}</p>
+	</section>
+	<section id="presentacion">
+		<p>
+			El registro es muy importante para pueda exponer su oferta de cursos.
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="curso" method="POST">
+			{% csrf_token %}
+      <input type="hidden" name="txtId" id="txtId" value = "{{ id }}">
+			<label for="Nombre">Nombre del curso</label>
+			<input type="text" placeholder="Nombre" name="txtNombre">
+			<label for="Duracion">Duración del curso</label>
+			<input type="text" placeholder="Duracion" name="txtDuracion">
+      <label for="Titulo">Titulo a obtener</label>
+			<input type="text" placeholder="Titulo" name="txtTitulo">
+			<label for="Locacion">Locacion donde se dicta</label>
+				<p></p>
+				<select id="clocacion" name="cboLocacion">
+				{% for l in local %}
+				<option value={{ l.id }}>{{l.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<input type="submit" name="btnGuardar" value="Guardar registro">
+		</form>
+	</section>
+	<h3>{{ mensaje }}</h3>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Acceso para instituciones{% endblock titulo %}
+{% block body %}
+<body>
+	<div class="login-box">
+		<a href="{% url 'home' %}">
+			<img class="logo" src="{% static 'core/img/logoKE.png' %}" alt="logoKE.png">
+		</a>
+		<h1>Acceso Instituciones</h1>
+		<form action="" id="loginInstitucion" method="POST">
+      {% csrf_token %}
+			<!-- Nombre de usuario -->
+			<label for="usuario">Usuario</label>
+			<input type="text" name="txtUsuario" id="txtUsuario">
+
+			<!-- Contraseña -->
+			<label for="contrasena">Contraseña</label>
+			<input type="password" name="txtContraseña" id="txtContraseña">
+			<input type="submit" value="Login">
+			<a href="#">Olvido su contraseña?</a><br>
+			<a href="{% url 'registroInst' %}">Registre a su Institución!!</a>
+			<label for="txtMen">{{ mensaje }}</label>
+		</form>
+	</div>
+</body>
+{% endblock body %}

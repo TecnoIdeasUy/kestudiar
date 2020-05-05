@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Estudiantes{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+    <a href="{% url 'home' %}">
+      <img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+    </a>
+    <a id="imagen">
+      <img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+    </a>
+	</header>
+	<section id="titulo">
+		<a href="{% url 'estudiante' estudiante.id %}">Buscador de Cursos: {{ estudiante.nombre }}</a>
+	</section>
+	<section id="buscar">
+		<form action="" id="buscar" method="POST">
+			{% csrf_token %}
+			<label for="Busca">Buscar por:</label>
+			<select id="combo" name="cboBuscar">
+				{% if seleccion == 'nc' %}
+					<option value="nc" selected="true">Nombre de curso</option>
+				{% else %}
+					<option value="nc">Nombre de curso</option>
+				{% endif %}
+				{% if seleccion == 'ci' %}
+					<option value="ci" selected="true">Ciudad donde se dicta</option>
+				{% else %}
+					<option value="ci">Ciudad donde se dicta</option>
+				{% endif %}
+				{% if seleccion == 'dc' %}
+					<option value="dc" selected="true">Duración de cursos</option>
+				{% else %}
+					<option value="dc">Duración de cursos</option>
+				{% endif %}
+				{% if seleccion == 'in' %}
+					<option value="in" selected="true">Instituto donde se dictan</option>
+				{% else %}
+					<option value="in">Instituto donde se dictan</option>
+				{% endif %}
+				{% if seleccion == 're' %}
+					<option value="re" selected="true">Requisitos para inscripción</option>
+				{% else %}
+					<option value="re">Requisitos para inscripción</option>
+				{% endif %}
+				{% if seleccion == 'tr' %}
+					<option value="tr" selected="true">Título a recibir</option>
+				{% else %}
+					<option value="tr">Título a recibir</option>
+				{% endif %}
+				{% if seleccion == 'tc' %}
+					<option value="tc" selected="true">Todos los cursos</option>
+				{% else %}
+					<option value="tc">Todos los cursos</option>
+				{% endif %}
+			</select>
+			<input type="text" placeholder="Texto a buscar" name="txtBuscar" id="txtBuscar" value = "{{ condicion }}"">
+			<p></p>
+			<input type="submit" name="btnBuscar" value="Consultar cursos">
+		</form>
+	</section>
+	<section id="cursos">
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="500px">Curso</th>
+						<th width="20%">Duración</th>
+						<th width="40%">Título</th>
+						<th></th>
+					</tr>
+				</thead>
+				{% for c in cursos %}
+				<tr id="col1">
+					<td>{{c.nombre}}</td>
+					<td>{{c.duración}}</td>
+					<td>{{c.titulo}}</td>
+					<td>
+						<a href="{% url 'verCurso' c.id c.nombre %}">Ver</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+{% endblock body %}

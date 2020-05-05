@@ -1,0 +1,189 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block titulo %}KEstudiar - Institución{% endblock titulo %}
+{% block body %}
+<body>
+	<header>
+		<h1>
+			<a href={% url 'home' %}>
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg">
+			</a>
+			<a id="imagen">
+				<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			</a>
+		</h1>
+	</header>
+	<section id="titulo">
+		<p>{{ instituto.nombre }}</p>
+	</section>
+	<section id="presentacion">
+		<p style="text-align: right">
+		<a href="{% url 'instituciones' instituto.id %}">Volver</a>
+		</p>
+		<p>
+			Actualización de datos
+		</p>
+	</section>
+	<section id="formReg">
+		<form action="" id="institucion" method = "POST">
+			{% csrf_token %}
+			<input type="hidden" name="txtId" id="txtId" value = "{{ instituto.id }}">
+			<label for="Nombre">Nombre de la Institución</label>
+			<input type="text" name="txtNombre" id="txtNombre" value = "{{ instituto.nombre }}">
+			<label for="TipoInstitucion">Tipo de institución</label>
+				<p></p>
+				<select id="ctipo" name="cboTipo">
+				{% for t in tipos %}
+				<option
+				{% if t.id == instituto.tipoInstitucion.id %}
+				{{'selected'}}
+				{% endif %}
+				value={{ t.id }}>{{t.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Direccion">Dirección</label>
+			<input type="text" name="txtDireccion" id="txtDireccion" value = "{{ instituto.direccion }}">
+			<label for="Pais">País</label>
+				<p></p>
+				<select id="cpais" name="cboPais">
+				{% for p in paises %}
+				<option
+				{% if p.id == instituto.pais.id %}
+				{{'selected'}}
+				{% endif %}
+				value={{ p.id }}>{{p.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Departamento">Departamento</label>
+				<p></p>
+				<select id="cdepartamento" name="cboDepartamento">
+				{% for d in departamentos %}
+				<option
+				{% if d.id == instituto.departamento.id %}
+				{{'selected'}}
+				{% endif %}
+				value={{ d.id }}>{{d.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Ciudad">Ciudad</label>
+				<p></p>
+				<select id="cciudad" name="cboCiudad">
+				{% for c in ciudades %}
+				<option
+				{% if c.id == instituto.ciudad.id %}
+				{{'selected'}}
+				{% endif %}
+				value={{ c.id }}>{{c.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Barrio">Barrio</label>
+				<p></p>
+				<select id="cbarrio" name="cboBarrio">
+				{% for b in barrios %}
+				<option
+				{% if b.id == instituto.barrio.id %}
+				{{'selected'}}
+				{% endif %}
+				value={{ b.id }}>{{b.nombre}}</option>
+				{% endfor %}
+			</select>
+			<hr size="1" color = "#f49405"></hr>
+			<p></p>
+			<label for="Telefono">Teléfono</label>
+			<input type="text" name="txtTelefono" id="txtTelefono" value = "{{ instituto.telefono }}">
+			<label for="Mail">Correo elecrónico</label>
+			<input type="email" name="txtMail" id="txtMail" value = "{{ instituto.eMail }}">
+			<label for="Web">Página web</label>
+			<input type="text" name="txtWeb" id="txtWeb" value = "{{ instituto.web }}">
+			<label for="Usuario">Nombre de usuario</label>
+			<input type="text" name="txtUsuario" id="txtUsuario" value = "{{ instituto.usuario }}">
+			<label for="Contrasena">Contraseña</label>
+			<input type="password" name="txtPassword" id="txtPassword" value = "{{ instituto.password }}">
+			<p>Estoy de acuerdo con los <a href="#">Términos y condiciones</a></p>
+			<input type="submit" name="btnModificar" value="Guardar cambios">
+		</form>
+	</section>
+	<section id="cursos">
+		<p>
+			Cursos
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="500px">Curso</th>
+						<th width="20%">Duración</th>
+						<th width="40%">Título</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				{% for c in cursos %}
+				<tr id="col1">
+					<td>{{c.nombre}}</td>
+					<td>{{c.duración}}</td>
+					<td>{{c.titulo}}</td>
+					<td>
+						<a href="{% url 'cursoM' c.id instituto.id instituto.nombre %}">Modificar</a>
+					</td>
+					<td>
+						<a href="{% url 'eliminar_curso' c.id instituto.id %}">Eliminar</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<a href="{% url 'curso' instituto.id instituto.nombre %}">Agregar curso</a>
+		</div>
+	</section>
+	<section id="locaciones">
+		<p>
+			Locaciones
+		</p>
+		<div id="tabla">
+			<table>
+				<thead>
+					<tr>
+						<th width="500px">Nombre</th>
+						<th width="30%">Direccion</th>
+						<th width="30%">Ciudad</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				{% for l in local %}
+				<tr id="col1">
+					<td>{{l.nombre}}</td>
+					<td>{{l.direccion}}</td>
+					<td>{{l.ciudad}}</td>
+					<td>
+						<a href="{% url 'locacionM' l.id instituto.id instituto.nombre %}">Modificar</a>
+					</td>
+					<td>
+						<a href="{% url 'eliminar_locacion' l.id instituto.id %}">Eliminar</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<a href="{% url 'locacion' instituto.id instituto.nombre %}">Agregar locación</a>
+		</div>
+	</section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+</body>
+
+{% if messages %}
+	{% for m in messages %}
+		<div> {{ m }}</div>
+	{% endfor %}
+{% endif %}
+
+{% endblock body %}

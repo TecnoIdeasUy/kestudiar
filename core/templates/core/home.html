@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block body %}
+	<header>
+		<h1>
+			<a href="{% url 'home' %}">
+				<img src="{% static 'core/img/logoKE.png' %}" alt="logoKE.jpg" title="Ir a inicio">
+			</a>
+		</h1>
+		<nav>
+			<ul>
+				<li><a href="{% url 'login' ' ' %}">Acceso Estudiantes</a></li>
+				<li><a href="{% url 'loginInstitucion' ' ' %}">Acceso Insituciones</a></li>
+			</ul>
+		</nav>
+	</header>
+	<section id="banner">
+		<h1>
+			<img src="{% static 'core/img/banner.jpg' %}" alt="banner"/>
+			<img src="{% static 'core/img/banner1.jpg' %}" alt="banner1"/>
+		</h1>
+	</section>
+	<section id="presentacion">
+		<p>
+			KEstudiar® es una herramienta que ofrece el acceso a la oferta educativa de manera organizada y concentrada en un mismo lugar, pudiendo el usuario establecer sus necesidades y que nuestra herramienta le muestre las diferentes alternativas de su búsqueda, así como el contenido de cada una de esas opciones, incluso con la posibilidad de realizar una comparación entre las mismas. Comience a encontrar su futuro...
+		</p>
+	</section>
+	<section id="noticias">
+		<h2>NOTICIAS</h2>
+		<article id="noticia1">
+			<P id="titulo">
+				<a href="https://www.semana.com/educacion/articulo/como-aprovechar-la-tecnologia-para-el-regreso-a-clases/649730" target="_blank">¿Cómo aprovechar la tecnología para el regreso a clases?</a>
+			</p>
+			<p id="contenido">
+				SEMANA EDUCACIÓN le presenta diversas plataformas y aplicaciones que ofrecen contenidos didácticos...
+			</P>
+		</article>
+		<article id="noticia2">
+				<P id="titulo">
+				<a href="https://www.semana.com/educacion/articulo/los-jovenes-si-se-sienten-preparados-para-enfrentar-su-futuro-encuesta-mundial/649349" target="_blank">¿Los jóvenes sí se sienten preparados para enfrentar su futuro?</a>
+			</p>
+			<p id="contenido">
+				La Cumbre Mundial para la Innovación en Educación reveló su estudio sobre la percepción que tienen los jóvenes del sistema educativo...
+			</P>
+		</article>
+		<article id="noticia3">
+				<P id="titulo">
+				<a href="https://www.semana.com/educacion/articulo/que-le-espera-a-la-educacion-con-la-posesion-de-los-nuevos-mandatarios/646676" target="_blank">¿Qué le espera a la educación con la posesión de los nuevos mandatarios?</a>
+			</p>
+			<p id="contenido">
+				El sector educativo ha conquistado un lugar preponderante en la agenda nacional, razón por la que las propuestas de los mandatarios locales...
+		</article>
+	</section>
+	<section id="sponsors">
+		<h2>SPONSORS</h2>
+		<article id="sponsor1">
+				<a href="https://www.mec.gub.uy/" target="_blank">
+				<img src="{% static 'core/img/logo-mec.png' %}" alt="mec.png"/>
+			</a>
+		</article>
+		<article id="sponsor2">
+				<a href="http://www.cuti.org.uy/"  target="_blank">
+				<img src="{% static 'core/img/logo-cuti.png' %}" alt="cuti.png"/>
+		</article>
+		<article id="sponsor3">
+				<a href="http://www.inefop.org.uy/" target="_blank">
+				<img src="{% static 'core/img/logo_inefop.jpg' %}" alt="inefop.jpg"/>
+		</article>
+		<article id="sponsor4">
+				<a href="https://lsqa.com.uy/" target="_blank">
+				<img src="{% static 'core/img/logo-lsqa.png' %}" alt="lsqa.png"/>
+		</article>
+		<div class="espacio"></div>
+	</section>
+	<footer>
+		<p>Desarrollado por TecnoIdeas - ©Todos los derechos reservados</p>
+	</footer>
+
+{% endblock body %}
